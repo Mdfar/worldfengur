@@ -3,13 +3,17 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
+import os
 import time
 import pandas as pd
 
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
 username = 'gudjong'
-password = 'alendis'
+try:
+    password = os.environ["SOME_SECRET"]
+except KeyError:
+    SOME_SECRET = "Token not available!"
 #add waits
 driver.get("https://www.worldfengur.com/login.jsp")
 time.sleep(2)
