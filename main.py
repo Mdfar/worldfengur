@@ -39,6 +39,12 @@ for result in results:
 values[7] = values[6]+","+values[7]
 del values[6]
 
+data = []
+header = ['Field','Value']
+for h in range(len(keys)):
+    data.append([keys[h],values[h]])
+basic_info = pd.DataFrame(data, columns=header)
+
 assesment = driver.find_elements(By.XPATH,'//*[@id="tab"]/ul/li[3]/a')
 blup = driver.find_elements(By.XPATH,'//*[@id="tab"]/ul/li[5]/a')
 
