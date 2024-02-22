@@ -91,11 +91,35 @@ try:
     blup_evaluation = pd.DataFrame(data, columns=header)
     driver.quit()
     
-    basic_info.to_csv('basic_info.csv', index=False)
-    breeding_assessment.to_csv('breeding_assessment.csv', index=False)
-    competition_results.to_csv('competition_results.csv', index=False)
-    blup_evaluation.to_csv('blup_evaluation.csv', index=False)
+    #basic_info.to_csv('basic_info.csv', index=False)
+    #breeding_assessment.to_csv('breeding_assessment.csv', index=False)
+    #competition_results.to_csv('competition_results.csv', index=False)
+    #blup_evaluation.to_csv('blup_evaluation.csv', index=False)
 except KeyError:
     password = ''
 #add waits
-
+private_key_id = os.environ["PRIVATE_KEY_ID"]
+private_key = os.environ["PRIVATE_KEY"]
+credentials = = {
+    "type": "service_account",
+    "project_id": "ac-gs-api",
+    "private_key_id": private_key_id,
+    "private_key": private_key,
+    "client_email": "python-api@ac-gs-api.iam.gserviceaccount.com",
+    "client_id": "100992285732075720915",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/python-api%40ac-gs-api.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+}
+gc = gspread.service_account_from_dict(credentials)
+sh = gc.open('Worldfengur_info')
+worksheet = sh.worksheet("Basic_Info")
+worksheet.update([basic_info.columns.values.tolist()] + basic_info.values.tolist())
+worksheet = sh.worksheet("Breeding_Assessment")
+worksheet.update([Breeding_assessment.columns.values.tolist()] + Breeding_assessment.values.tolist())
+worksheet = sh.worksheet("Competition_Results")
+worksheet.update([competition_results.columns.values.tolist()] + competition_results.values.tolist())
+worksheet = sh.worksheet("Blup_Evaluation")
+worksheet.update([blup_evaluation.columns.values.tolist()] + blup_evaluation.values.tolist())
