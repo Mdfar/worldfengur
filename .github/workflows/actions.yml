@@ -2,7 +2,7 @@ name: run main.py
 
 on:
   schedule:
-    - cron: '0 0 * * 1' # At 00:00 on Monday
+    - cron: '0 15 * * *' # At 15:00 on Everyday
 
 jobs:
   build:
@@ -25,6 +25,8 @@ jobs:
       - name: execute py script # run main.py
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
+          private_key_id: ${{ secrets.PRIVATE_KEY_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
         run: python main.py
           
       - name: commit files
