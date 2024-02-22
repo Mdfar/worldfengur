@@ -66,7 +66,7 @@ for row in driver.find_elements(By.XPATH,'//table[2]/tbody/tr[3]/td/table[2]/tbo
     row_data = [cell.text for cell in row.find_elements(By.XPATH,".//td")]
     data_2.append(row_data)
     
-Breeding_assessment = pd.DataFrame(data_1, columns=headers_1)
+breeding_assessment = pd.DataFrame(data_1, columns=headers_1)
 competition_results = pd.DataFrame(data_2, columns=headers_2)
 
 driver.get(blup_url)
@@ -92,6 +92,6 @@ blup_evaluation = pd.DataFrame(data, columns=header)
 driver.quit()
 
 basic_info.to_csv('basic_info.csv', index=False)
-Breeding_assessment.to_csv('Breeding_assessment.csv', index=False)
+breeding_assessment.to_csv('breeding_assessment.csv', index=False)
 competition_results.to_csv('competition_results.csv', index=False)
 blup_evaluation.to_csv('blup_evaluation.csv', index=False)
