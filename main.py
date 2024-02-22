@@ -90,3 +90,8 @@ for i in range(len(heads)):
 header = ['Field','Value']
 blup_evaluation = pd.DataFrame(data, columns=header)
 driver.quit()
+
+basic_info.to_csv('basic_info.csv', index=False)
+Breeding_assessment.to_csv('Breeding_assessment.csv', index=False)
+competition_results.to_csv('competition_results.csv', index=False)
+blup_evaluation.to_csv('blup_evaluation.csv', index=False)
