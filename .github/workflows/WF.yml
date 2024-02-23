@@ -14,11 +14,9 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.9' # install the python version needed
-          
-      - name: Install Chromium
+
+      - name: Install Chrome
         run: |
           sudo apt update
-          sudo apt install -y chromium-browser=116.0.5793.0
-      - name: Install Chromedriver
-        run: |
-          sudo apt install -y chromedriver=116.0.5793.0
+          sudo apt install -y unzip
+          wget https://storage.googleapis.com/chrome-for-testing-public/114.0.5735.90/linux64/chrome-linux64.zip
