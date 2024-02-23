@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
@@ -13,24 +15,22 @@ chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(options=chrome_options,service=ChromeService(ChromeDriverManager().install()))
+wait = WebDriverWait(driver, 10)
 
 username = 'gudjong'
 try:
     password = os.environ["SOME_SECRET"]
     driver.get("https://www.worldfengur.com/login.jsp")
-    time.sleep(2)
+    wait.until(EC.visibility_of_element_located((By.NAME, 'userid')))
     driver.find_element("name", 'userid').send_keys(username)
-    # find password input field and insert password as well
     driver.find_element("name", 'password').send_keys(password)
-    # click login button
     driver.find_element("name", "Submit").click()
-    time.sleep(1)
     driver.get("https://www.worldfengur.com/hross_leita_star.jsp")
-    time.sleep(2)
     FFIE = 'IS2010286682'
+    wait.until(EC.visibility_of_element_located((By.ID, "fnr")))
     driver.find_element("id", 'fnr').send_keys(FFIE)
     driver.find_element("id", 'leita').click()
-    time.sleep(2)
+    wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "clsWfDark")))
     fields = driver.find_elements(By.CLASS_NAME, "clsWfDark")
     results = driver.find_elements(By.CLASS_NAME, "clsWfWhite")
     keys = []
@@ -57,8 +57,7 @@ try:
         asses_urls = assesment[i].get_attribute("href")
         blup_url = blup[i].get_attribute("href")
     driver.get(asses_urls)
-    time.sleep(2)
-    
+    wait.until(EC.visibility_of_element_located((By.XPATH,'//table[2]/tbody/tr[3]/td/table[1]/tbody/tr[1]/th')))
     headers_1 = [header.text for header in driver.find_elements(By.XPATH,'//table[2]/tbody/tr[3]/td/table[1]/tbody/tr[1]/th')]
     data_1 = []
     for row in driver.find_elements(By.XPATH,'//table[2]/tbody/tr[3]/td/table[1]/tbody/tr[position()>1]'):
@@ -75,11 +74,11 @@ try:
     competition_results = pd.DataFrame(data_2, columns=headers_2)
     
     driver.get(blup_url)
-    time.sleep(2)
     
     heads = []
     values = []
     data = []
+    wait.until(EC.visibility_of_element_located((By.CLASS_NAME,"clsWfDarkLeft")))
     for row in driver.find_elements(By.XPATH,'//table[2]/tbody/tr[3]/td/table[*]/tbody'):
         head = [cell.text for cell in row.find_elements(By.CLASS_NAME,"clsWfDarkLeft")]
         row_data = [cell.text for cell in row.find_elements(By.CLASS_NAME,"clsWfWhite")]
