@@ -15,7 +15,7 @@ chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(options=chrome_options,service=ChromeService(ChromeDriverManager().install()))
-wait = WebDriverWait(driver, 10)
+wait = WebDriverWait(driver, 40)
 
 username = 'gudjong'
 try:
