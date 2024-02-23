@@ -100,7 +100,7 @@ except KeyError:
 #add waits
 private_key_id = os.environ["PRIVATE_KEY_ID"]
 private_key = os.environ["PRIVATE_KEY"]
-credentials = = {
+credentials = {
     "type": "service_account",
     "project_id": "ac-gs-api",
     "private_key_id": private_key_id,
