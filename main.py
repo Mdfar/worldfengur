@@ -2,12 +2,15 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.chrome.options import Options
 import os
 import time
 import pandas as pd
 
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+options = Options()
+options.headless = True
+options.add_argument("--window-size=1920,1200")
+driver = webdriver.Chrome(options=options,service=ChromeService(ChromeDriverManager().install()))
 
 username = 'gudjong'
 try:
@@ -118,7 +121,7 @@ sh = gc.open('Worldfengur_info')
 worksheet = sh.worksheet("Basic_Info")
 worksheet.update([basic_info.columns.values.tolist()] + basic_info.values.tolist())
 worksheet = sh.worksheet("Breeding_Assessment")
-worksheet.update([Breeding_assessment.columns.values.tolist()] + Breeding_assessment.values.tolist())
+worksheet.update([breeding_assessment.columns.values.tolist()] + breeding_assessment.values.tolist())
 worksheet = sh.worksheet("Competition_Results")
 worksheet.update([competition_results.columns.values.tolist()] + competition_results.values.tolist())
 worksheet = sh.worksheet("Blup_Evaluation")
