@@ -2,8 +2,6 @@ name: run main.py
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 15 * * *' # At 15:00 on Everyday
 
 jobs:
   build:
